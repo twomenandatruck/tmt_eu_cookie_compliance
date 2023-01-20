@@ -55,8 +55,9 @@
   /**
    * Toggle the current status of the EU Cookie Compliance cookie.
    */
-  var handleToggle = function () {
-    var newStatus = Drupal.eu_cookie_compliance.getCurrentStatus() === cookieValueDisagreed ?
+  var handleToggle = function (event) {
+    // console.log('event.target.checked', event.target.checked);
+    var newStatus = event.target.checked ?
       cookieValueAgreed :
       cookieValueDisagreed;
 
@@ -70,7 +71,7 @@
       $(context)
         .find('.tmt-eu-cookie-compliance-toggle')
         .once('tmt-eu-cookie-compliance-toggle')
-        .on('click', handleToggle)
+        .on('change', handleToggle)
         .each(function () {
           $(this).prop('checked', [cookieValueAgreed, cookieValueAgreedShowThankYou].includes(Drupal.eu_cookie_compliance.getCurrentStatus()));
         });
