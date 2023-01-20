@@ -73,7 +73,6 @@
         .on('click', handleToggle)
         .each(function () {
           $(this).prop('checked', [cookieValueAgreed, cookieValueAgreedShowThankYou].includes(Drupal.eu_cookie_compliance.getCurrentStatus()));
-          // @TODO: Fix default state to be disable unless specifically opted in
         });
     }
   };
