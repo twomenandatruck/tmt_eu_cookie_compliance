@@ -1,6 +1,6 @@
 name: TMT EU Cookie Compliance
 type: module
-description: Add a custom block with a button to GDPR
+description: Adds custom integration with EU Cookie Compliance
 core_version_requirement: ^9 || ^10
 package: Two Men and a Truck
 

@@ -1,0 +1,15 @@
+{
+    "name": "drupal/tmt_eu_cookie_compliance",
+    "description": "Adds custom integration with EU Cookie Compliance",
+    "type": "drupal-module",
+    "repositories": {
+        "drupal" : {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    },
+    "require": {
+        "drupal/eu_cookie_compliance_gtm": "1.x-dev"
+    },
+    "minimum-stability": "dev"
+}
