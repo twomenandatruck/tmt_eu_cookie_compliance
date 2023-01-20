@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function tmt_eu_cookie_compliance_theme($existing, $type, $theme, $path) {
+  return [
+    'tmt_eu_cookie_compliance_toggle' => [
+      'variables' => [
+        'label' => '',
+        'classes' => [],
+      ],
+    ],
+  ];
+}

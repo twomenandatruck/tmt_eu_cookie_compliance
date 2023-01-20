@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Install some defaults for EU Cookie Compliance settings.
+ */
+function tmt_eu_cookie_compliance_install() {
+  $moduleHandler = \Drupal::service('module_handler');
+  if ($moduleHandler->moduleExists('tmt_cookies')) {
+    \Drupal::service('module_installer')->uninstall(['tmt_cookies']);
+  }
+
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('eu_cookie_compliance.settings');
+  $config->set('cookie_name', 'cookieconsent_status');
+  $config->set('cookie_value_disagreed', 'deny');
+  $config->set('cookie_value_agreed', 'allow');
+  $config->set('allowed_cookies', 'AWSALB*');
+  $config->set('use_olivero_css', FALSE);
+  $config->set('domain_all_sites', TRUE);
+  $config->save(TRUE);
+}

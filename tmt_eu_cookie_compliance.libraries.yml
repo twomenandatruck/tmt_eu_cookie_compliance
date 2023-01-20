@@ -1,0 +1,7 @@
+toggle:
+  js:
+    js/toggle.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - eu_cookie_compliance/eu_cookie_compliance
