@@ -8,6 +8,7 @@
 
   // Borrowed from the top of eu_cookie_compliance/js/eu_cookie_compliance.js
   var cookieValueDisagreed = (typeof drupalSettings.eu_cookie_compliance.cookie_value_disagreed === 'undefined' || drupalSettings.eu_cookie_compliance.cookie_value_disagreed === '') ? '0' : drupalSettings.eu_cookie_compliance.cookie_value_disagreed;
+  var cookieValueAgreedShowThankYou = (typeof drupalSettings.eu_cookie_compliance.cookie_value_agreed_show_thank_you === 'undefined' || drupalSettings.eu_cookie_compliance.cookie_value_agreed_show_thank_you === '') ? '1' : drupalSettings.eu_cookie_compliance.cookie_value_agreed_show_thank_you;
   var cookieValueAgreed = (typeof drupalSettings.eu_cookie_compliance.cookie_value_agreed === 'undefined' || drupalSettings.eu_cookie_compliance.cookie_value_agreed === '') ? '2' : drupalSettings.eu_cookie_compliance.cookie_value_agreed;
 
   /**
@@ -18,7 +19,7 @@
    */
   var handlePostStatusSave = function (response) {
     // console.log('handlePostStatusSave', { response: response });
-    var agreed = response.currentStatus !== cookieValueDisagreed;
+    var agreed = [cookieValueAgreed, cookieValueAgreedShowThankYou].includes(response.currentStatus);
     $('.tmt-eu-cookie-compliance-toggle').prop('checked', agreed);
 
     if (agreed) {
@@ -41,7 +42,7 @@
   */
   var handlePostStatusLoad = function (response) {
     // console.log('handlePostStatusLoad', { response: response });
-    var agreed = response.currentStatus !== cookieValueDisagreed;
+    var agreed = [cookieValueAgreed, cookieValueAgreedShowThankYou].includes(response.currentStatus);
 
     $(window).once('tmt-eu-cookie-compliance-handle-post-status-load').trigger(
       agreed ? 'enableCookies' : 'disableCookies'
@@ -71,7 +72,8 @@
         .once('tmt-eu-cookie-compliance-toggle')
         .on('click', handleToggle)
         .each(function () {
-          $(this).prop('checked', Drupal.eu_cookie_compliance.getCurrentStatus() !== cookieValueDisagreed);
+          $(this).prop('checked', [cookieValueAgreed, cookieValueAgreedShowThankYou].includes(Drupal.eu_cookie_compliance.getCurrentStatus()));
+          // @TODO: Fix default state to be disable unless specifically opted in
         });
     }
   };
