@@ -1,5 +1,5 @@
 {
-    "name": "drupal/tmt_eu_cookie_compliance",
+    "name": "twomenandatruck/tmt_eu_cookie_compliance",
     "description": "Adds custom integration with EU Cookie Compliance",
     "type": "drupal-module",
     "repositories": {
