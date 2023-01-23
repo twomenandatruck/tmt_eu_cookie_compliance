@@ -6,4 +6,3 @@ package: Two Men and a Truck
 
 dependencies:
   - eu_cookie_compliance:eu_cookie_compliance
-  - eu_cookie_compliance_gtm:eu_cookie_compliance_gtm

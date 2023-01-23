@@ -8,8 +8,8 @@
             "url": "https://packages.drupal.org/8"
         }
     },
+    "minimum-stability": "dev",
     "require": {
-        "drupal/eu_cookie_compliance_gtm": "1.x-dev"
-    },
-    "minimum-stability": "dev"
+        "drupal/eu_cookie_compliance": "2.0.x-dev"
+    }
 }
