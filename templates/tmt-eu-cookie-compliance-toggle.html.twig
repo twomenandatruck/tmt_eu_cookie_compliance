@@ -1,9 +1,12 @@
 {{ attach_library('tmt_eu_cookie_compliance/toggle') }}
-<label>
-  <input type="checkbox" name="tmt-eu-cookie-compliance-toggle" class="tmt-eu-cookie-compliance-toggle {{ classes|map(c => c|clean_class)|join(' ') }}" value="value">
-    {% if label %}
-      {{ label }}
-    {% else %}
-      {% trans %}I wish to opt in{% endtrans %}
-    {% endif %}
-</label>
+<fieldset class="tmt-eu-cookie-compliance-toggle {{ classes|map(c => c|clean_class)|join(' ') }}">
+  <legend>{% trans %}Cookie settings{% endtrans %}</legend>
+  <label>
+    <input type="checkbox" name="tmt-eu-cookie-compliance-toggle" value="value">
+      {% if label %}
+        {{ label }}
+      {% else %}
+        {% trans %}I wish to opt in{% endtrans %}
+      {% endif %}
+  </label>
+</fieldset>
