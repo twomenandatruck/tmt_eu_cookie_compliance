@@ -22,7 +22,10 @@
   var cookieValueAgreed = (typeof drupalSettings.eu_cookie_compliance.cookie_value_agreed === 'undefined' || drupalSettings.eu_cookie_compliance.cookie_value_agreed === '') ? '2' : drupalSettings.eu_cookie_compliance.cookie_value_agreed;
 
   var statusIsAgreed = function (status) {
-    return (status !== null && [cookieValueAgreed, cookieValueAgreedShowThankYou].includes(status)) || drupalSettings.eu_cookie_compliance.method === 'opt_out';
+    if (status !== null) {
+      return [cookieValueAgreed, cookieValueAgreedShowThankYou].includes(status);
+    }
+    return drupalSettings.eu_cookie_compliance.method === 'opt_out';
   };
 
   /**
