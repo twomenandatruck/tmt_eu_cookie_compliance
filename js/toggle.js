@@ -35,9 +35,13 @@
    * @param {string} response.currentStatus current status from EU Cookie Compliance
    */
   var handlePostStatusSave = function (response) {
-    console.log('handlePostStatusSave', { response: response });
     var isAgreed = statusIsAgreed(response.currentStatus);
-    $(cookieCheckboxSelector).prop('checked', isAgreed);
+    console.log('handlePostStatusSave', {
+      response: response,
+      isAgreed: isAgreed,
+    });
+
+    $(cookieCheckboxSelector).prop('checked', !isAgreed);
 
     $(window).trigger(isAgreed ? 'enableCookies' : 'disableCookies');
   };
@@ -49,8 +53,11 @@
   * @param {string} response.currentStatus current status from EU Cookie Compliance
   */
   var handlePostPreferencesLoad = function (response) {
-    console.log('handlePostPreferencesLoad', { response: response });
     var isAgreed = statusIsAgreed(response.currentStatus);
+    console.log('handlePostPreferencesLoad', {
+      response: response,
+      isAgreed: isAgreed,
+    });
 
     $(window).once('tmt-eu-cookie-compliance-handle-post-status-load').trigger(
       isAgreed ? 'enableCookies' : 'disableCookies'
@@ -70,10 +77,10 @@
        */
       var handleToggle = function (event) {
         if (event.target.checked) {
-          Drupal.eu_cookie_compliance.acceptAction();
+          Drupal.eu_cookie_compliance.declineAction();
         }
         else {
-          Drupal.eu_cookie_compliance.declineAction();
+          Drupal.eu_cookie_compliance.acceptAction();
         }
       };
 
@@ -83,7 +90,7 @@
         .on('change', handleToggle)
         .each(function () {
           // Initial status.
-          $(this).prop('checked', statusIsAgreed(Drupal.eu_cookie_compliance.getCurrentStatus()));
+          $(this).prop('checked', !statusIsAgreed(Drupal.eu_cookie_compliance.getCurrentStatus()));
         });
     }
   };
