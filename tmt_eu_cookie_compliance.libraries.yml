@@ -3,5 +3,11 @@ toggle:
     js/toggle.js: {}
   dependencies:
     - core/jquery
-    - core/jquery.once
+    - core/once
     - eu_cookie_compliance/eu_cookie_compliance
+
+session:
+  js:
+    js/session.js: {}
+  dependencies:
+    - core/jquery

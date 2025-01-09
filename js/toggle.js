@@ -95,14 +95,14 @@
         }
       };
 
-      // Respect GPC signal from browser.
+      // Respect GPC signal from browser unless overridden by user.
       $(function() {
-        if (navigator.globalPrivacyControl) {
+        if (
+          navigator.globalPrivacyControl &&
+          localStorage.getItem('tmt_cookie_opt_out') !== '0'
+          ) {
           Drupal.eu_cookie_compliance.declineAction();
-          $(cookieCheckboxSelector).prop({
-            'checked': true,
-            'disabled': true
-          });
+          $(cookieCheckboxSelector).prop('checked', true);
         }
       });
 
