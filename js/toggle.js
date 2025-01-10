@@ -89,9 +89,11 @@
       var handleToggle = function (event) {
         if (event.target.checked) {
           Drupal.eu_cookie_compliance.declineAction();
+          localStorage.setItem('tmt_cookie_opt_out', '1');
         }
         else {
           Drupal.eu_cookie_compliance.acceptAction();
+          localStorage.setItem('tmt_cookie_opt_out', '0');
         }
       };
 

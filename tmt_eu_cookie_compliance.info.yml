@@ -1,7 +1,7 @@
 name: TMT EU Cookie Compliance
 type: module
 description: Adds custom integration with EU Cookie Compliance
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^10 || ^11
 package: Two Men and a Truck
 
 dependencies:

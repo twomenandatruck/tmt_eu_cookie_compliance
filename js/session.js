@@ -14,6 +14,12 @@
       ) {
       Drupal.eu_cookie_compliance.declineAction();
     }
+    else if (
+      !navigator.globalPrivacyControl &&
+      localStorage.getItem('tmt_cookie_opt_out') !== '1'
+    ) {
+      Drupal.eu_cookie_compliance.acceptAction();
+    }
   });
 
 })(jQuery, Drupal)
