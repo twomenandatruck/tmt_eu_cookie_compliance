@@ -13,3 +13,11 @@ function tmt_eu_cookie_compliance_theme($existing, $type, $theme, $path) {
     ],
   ];
 }
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function tmt_eu_cookie_compliance_page_attachments_alter(array &$page) {
+  // Attach the session management script on every page.
+  $page['#attached']['library'][] = 'tmt_eu_cookie_compliance/session';
+}

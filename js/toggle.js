@@ -17,9 +17,18 @@
   var cookieCheckboxSelector = '.tmt-eu-cookie-compliance-toggle input[type="checkbox"]';
 
   // Borrowed from the top of eu_cookie_compliance/js/eu_cookie_compliance.js
-  var cookieValueDisagreed = (typeof drupalSettings.eu_cookie_compliance.cookie_value_disagreed === 'undefined' || drupalSettings.eu_cookie_compliance.cookie_value_disagreed === '') ? '0' : drupalSettings.eu_cookie_compliance.cookie_value_disagreed;
-  var cookieValueAgreedShowThankYou = (typeof drupalSettings.eu_cookie_compliance.cookie_value_agreed_show_thank_you === 'undefined' || drupalSettings.eu_cookie_compliance.cookie_value_agreed_show_thank_you === '') ? '1' : drupalSettings.eu_cookie_compliance.cookie_value_agreed_show_thank_you;
-  var cookieValueAgreed = (typeof drupalSettings.eu_cookie_compliance.cookie_value_agreed === 'undefined' || drupalSettings.eu_cookie_compliance.cookie_value_agreed === '') ? '2' : drupalSettings.eu_cookie_compliance.cookie_value_agreed;
+  var cookieValueDisagreed = (
+    typeof drupalSettings.eu_cookie_compliance.cookie_value_disagreed === 'undefined' ||
+    drupalSettings.eu_cookie_compliance.cookie_value_disagreed === ''
+  ) ? '0' : drupalSettings.eu_cookie_compliance.cookie_value_disagreed;
+  var cookieValueAgreedShowThankYou = (
+    typeof drupalSettings.eu_cookie_compliance.cookie_value_agreed_show_thank_you === 'undefined' ||
+    drupalSettings.eu_cookie_compliance.cookie_value_agreed_show_thank_you === ''
+  ) ? '1' : drupalSettings.eu_cookie_compliance.cookie_value_agreed_show_thank_you;
+  var cookieValueAgreed = (
+    typeof drupalSettings.eu_cookie_compliance.cookie_value_agreed === 'undefined' ||
+    drupalSettings.eu_cookie_compliance.cookie_value_agreed === ''
+  ) ? '2' : drupalSettings.eu_cookie_compliance.cookie_value_agreed;
 
   var statusIsAgreed = function (status) {
     if (status !== null) {
@@ -43,7 +52,9 @@
 
     $(cookieCheckboxSelector).prop('checked', !isAgreed);
 
-    $(window).trigger(isAgreed ? 'enableCookies' : 'disableCookies');
+    $(window).trigger(
+      isAgreed ? 'enableCookies' : 'disableCookies'
+    );
   };
 
   /**
@@ -59,7 +70,7 @@
       isAgreed: isAgreed,
     });
 
-    $(window).once('tmt-eu-cookie-compliance-handle-post-status-load').trigger(
+    $(window).trigger(
       isAgreed ? 'enableCookies' : 'disableCookies'
     );
   };
@@ -78,15 +89,26 @@
       var handleToggle = function (event) {
         if (event.target.checked) {
           Drupal.eu_cookie_compliance.declineAction();
+          localStorage.setItem('tmt_cookie_opt_out', '1');
         }
         else {
           Drupal.eu_cookie_compliance.acceptAction();
+          localStorage.setItem('tmt_cookie_opt_out', '0');
         }
       };
 
-      $(context)
-        .find(cookieCheckboxSelector)
-        .once('tmt-eu-cookie-compliance-toggle')
+      // Respect GPC signal from browser unless overridden by user.
+      $(function() {
+        if (
+          navigator.globalPrivacyControl &&
+          localStorage.getItem('tmt_cookie_opt_out') !== '0'
+          ) {
+          Drupal.eu_cookie_compliance.declineAction();
+          $(cookieCheckboxSelector).prop('checked', true);
+        }
+      });
+
+      $(once('tmt-eu-cookie-compliance-toggle', cookieCheckboxSelector, context))
         .on('change', handleToggle)
         .each(function () {
           // Initial status.
