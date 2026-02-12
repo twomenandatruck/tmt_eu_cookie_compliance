@@ -46,11 +46,6 @@ class CookiePageController extends ControllerBase implements ContainerInjectionI
           'cookie-page-wrapper'
         ]
       ],
-      '#attached' => [
-        'library' => [
-          'tmt_eu_cookie_compliance/toggle',
-        ]
-      ],
       // Body text.
       'body' => [
         '#type' => 'processed_text',
