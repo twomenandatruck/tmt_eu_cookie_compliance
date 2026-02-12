@@ -1,0 +1,15 @@
+tmt_eu_cookie_compliance.cookie_page:
+  path: '/cookies'
+  defaults:
+    _controller: '\Drupal\tmt_eu_cookie_compliance\Controller\CookiePageController::content'
+    _title: 'Cookies'
+  requirements:
+    _permission: 'access content'
+
+tmt_eu_cookie_compliance.cookie_page_edit:
+  path: "/admin/content/cookies"
+  defaults:
+    _form: '\Drupal\tmt_eu_cookie_compliance\Form\CookiePageAdminForm'
+    _title: "Edit Cookie Page Content"
+  requirements:
+    _permission: "administer site configuration"
