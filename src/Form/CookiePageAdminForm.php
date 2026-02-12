@@ -23,7 +23,7 @@ class CookiePageAdminForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'srm_cookie_page_admin_form';
+    return 'cookie_page_admin_form';
   }
 
   /**
