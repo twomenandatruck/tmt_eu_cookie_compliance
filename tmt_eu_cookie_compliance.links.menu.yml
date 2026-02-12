@@ -1,0 +1,6 @@
+system.admin_content.cookie_page:
+  route_name: tmt_eu_cookie_compliance.cookie_page_edit
+  parent: system.admin_content
+  description: 'Edit cookies opt-out page content'
+  title: Edit Cookies page content
+  weight: 100

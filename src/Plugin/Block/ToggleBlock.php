@@ -23,8 +23,6 @@ class ToggleBlock extends BlockBase implements BlockPluginInterface {
 
     $output['button'] = [
       '#theme' => 'tmt_eu_cookie_compliance_toggle',
-      // '#label' => 'I wish to opt in', // Default.
-      // '#classes' => ['foo', 'bar'],
     ];
 
     return $output;
