@@ -3,7 +3,7 @@
  *
  * Attaches the GDPR toggle function.
  */
-(function ($, Drupal) {
+(function ($, Drupal, once) {
   'use strict';
 
   // Sep up the namespace as a function to store list of arguments in a queue.
@@ -59,9 +59,12 @@
       isAgreed: isAgreed,
     });
 
-    $(window).once('tmt-eu-cookie-compliance-handle-post-status-load').trigger(
-      isAgreed ? 'enableCookies' : 'disableCookies'
-    );
+    // once() cannot mark window, so mark the document root instead.
+    if (once('tmt-eu-cookie-compliance-handle-post-status-load', 'html').length) {
+      $(window).trigger(
+        isAgreed ? 'enableCookies' : 'disableCookies'
+      );
+    }
   };
 
   // Register our post status save handler with EU Cookie Compliance.
@@ -84,9 +87,7 @@
         }
       };
 
-      $(context)
-        .find(cookieCheckboxSelector)
-        .once('tmt-eu-cookie-compliance-toggle')
+      $(once('tmt-eu-cookie-compliance-toggle', cookieCheckboxSelector, context))
         .on('change', handleToggle)
         .each(function () {
           // Initial status.
@@ -95,4 +96,4 @@
     }
   };
 
-})(jQuery, Drupal);
+})(jQuery, Drupal, once);
